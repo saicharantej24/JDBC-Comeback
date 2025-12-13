@@ -59,6 +59,39 @@ This does NOT mean the insert failed.
 It means: “No ResultSet was produced.”  
 Use executeUpdate() instead of execute().  
 
+# PrepareStatement
+- Prob wuth statement interface:  
+It is vulnerable to SQL Injection attacks.
+
+```java
+import java.sql.*;
+public class demojdbc1 {
+
+    public static void main (String[] args) throws ClassNotFoundException, SQLException {
+        String url="jdbc:postgresql://localhost:5432/Demo";
+        String uname="postgres";
+        String pwd="Sai@572charan24";
+
+        Class.forName("org.postgresql.Driver");
+        Connection con=DriverManager.getConnection(url,uname,pwd);
+        Statement st=con.createStatement();
+
+        String q1="insert into \"Tab1\" values(?,?)";
+
+        int sid=9;
+        String sname="bh";
+
+        PreparedStatement ps=con.prepareStatement(q1);
+        ps.setInt(1,sid);
+        ps.setString(2,sname);
+        ps.execute();
+
+        con.close();
+    }
+}
+```
+
+
 
 
 
